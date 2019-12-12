@@ -1,18 +1,18 @@
 const studentRouter = require('express').Router()
-const studentModel = require('../../models/student')
-const mocks = require('../../helpers/mocks')
+const { createRecord } = require('../../models/createRecord');
+const { createMockStudent } = require('../../helpers/mocks')
 
 /**
  * A GET route `/student` which returns
  * a mock student.
  */
 studentRouter.get('/', (req, res, next) => {
-    res.body = mocks.createMockStudent()
+    res.body = createMockStudent()
     next()
 })
 
 studentRouter.use((req, res) => {
-    studentModel.createStudentRecord(mocks.createMockStudent())
+    createRecord(res.body, 'students')
     res.send(res.body)
 })
 

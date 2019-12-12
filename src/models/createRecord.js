@@ -1,9 +1,9 @@
 const sqlite3 = require('sqlite3').verbose()
 const { queryHandler, prepareParameters } = require('../helpers/sqlite3');
 
-function createStudentRecord(newRecordObject, table = 'students') {
+function createRecord(newRecordObject, table) {
     const db = new sqlite3.Database('./src/db/mocks.db', (err) => {
-       if (err) {
+        if (err) {
             console.error(`Error connecting to database: ${err}`)
         }
     })
@@ -16,5 +16,5 @@ function createStudentRecord(newRecordObject, table = 'students') {
 }
 
 
-module.exports = { createStudentRecord }
+module.exports = { createRecord }
 

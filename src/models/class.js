@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose()
-
+const { queryHandler } = require('../helpers/sqlite3');
 
 function createClassRecord(classMock) {
     const db = new sqlite3.Database('./src/db/mocks.db', (err) => {

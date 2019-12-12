@@ -1,16 +1,16 @@
-const faker = require('faker')
 const classRouter = require('express').Router()
 const classModel = require('../../models/class')
-const mocks = require('../../helpers/mocks')
+const { createMockClass } = require('../../helpers/mocks')
+const { createRecord } = require('../../models/createRecord');
 
 classRouter.get('/', (req, res, next) => {
-    res.body = mocks.createMockClass()
+    res.body = createMockClass()
     next()
 })
 
 
 classRouter.use((req, res, next) => {
-    classModel.createClassRecord(res.body)
+    createRecord(res.body, 'classes')
     res.send(res.body)
 })
 
