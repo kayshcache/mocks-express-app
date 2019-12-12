@@ -40,4 +40,4 @@ router.all('*', (req, res) => {
     res.send('404 Page not found')
 })
 
-module.exports = router
+module.exports = router;

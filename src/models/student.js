@@ -15,37 +15,25 @@ function createStudentRecord(studentMock) {
         $gender: studentMock.gender
     }
 
-    const sql = `
-    INSERT INTO students(
-        first_name,
-        last_name,
-        birthdate,
-        address,
-        gender
-    ) VALUES (
-        $first_name,
-        $last_name,
-        $birthdate,
-        $address,
-        $gender
-    )
-    `
+    const parameterKeys = Object.keys(parameters);
+    const fieldNamesNoDollar = parameterKeys.map(key => key.slice(1)).join(', ');
+    const fieldNames = parameterKeys.join(', ');
 
-    db.serialize(() => {
-        db.run(
-            sql,
-            parameters,
-            function (err) {
-                if (err) {
-                    console.error(err)
-                    db.close()
-                } else {
-                    console.log('Class saved to DB with id of: ', this.lastID)
-                    db.close()
-                }
-            }
-        )
-    })
+    const sql = `INSERT INTO students(${fieldNamesNoDollar}) VALUES (${fieldNames})`
+
+    db.serialize(() => db.run(sql, parameters, queryHandler));
+
+    function queryHandler(err) {
+	if (err) {
+	    console.error(err)
+	    db.close()
+	} else {
+	    console.log('Class saved to DB with id of: ', this.lastID)
+	    db.close()
+	}
+    }
+
 }
+
 
 module.exports = { createStudentRecord }
