@@ -1,8 +1,8 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
 // router.use 
-router.use('/student', require('./student/studentRoutes'))
-router.use('/class', require('./class/classRoutes'))
+router.use('/student', require('./student/studentRoutes'));
+router.use('/class', require('./class/classRoutes'));
 
 // Default route returns an HTML document displaying 
 // the endpoints for the applications with a list
@@ -30,14 +30,14 @@ router.get('/', (req, res) => {
             </section>
         </body>
     </html>
-    `)
-})
+    `);
+});
 
 // `app.all` listens for all HTTP methods, if using this as a
 // catch-all, make sure it is the last route that is declared
 router.all('*', (req, res) => {
     res.status(404)
     res.send('404 Page not found')
-})
+});
 
 module.exports = router;
